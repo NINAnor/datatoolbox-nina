@@ -8,4 +8,7 @@ in pkgs.mkShell rec {
     pythonPackages.duckdb
     pythonPackages.click
   ];
+  shellHook = ''
+    alias csv-diff="python main.py"
+  '';
 }
