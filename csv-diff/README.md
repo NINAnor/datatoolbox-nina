@@ -9,6 +9,6 @@ The comparison is done without reading the header, this means that both the file
 ## Install
 ```
 nix-shell
-python main.py --help
-python main.py target/path source/path
+csv-diff --help
+csv-diff target/path source/path
 ```

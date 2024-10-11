@@ -11,4 +11,7 @@ in pkgs.mkShell rec {
     gdal
     tippecanoe
   ];
+  shellHook = ''
+    alias gpkg-to-pmtiles="python main.py"
+  '';
 }

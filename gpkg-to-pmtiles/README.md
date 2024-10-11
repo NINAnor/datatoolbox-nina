@@ -7,7 +7,7 @@ This script will split each layer into a separate gpkg file, then convert each t
 # Usage
 ```bash
 nix-shell
-python manage.py my-file.gpkg --wd /my/working/directory
+gpkg-to-pmtiles my-file.gpkg --wd /my/working/directory
 ```
 
 **NOTE**: GPKG have errors while using them on network storages such as P: or R:, use `/data/scratch` in case
