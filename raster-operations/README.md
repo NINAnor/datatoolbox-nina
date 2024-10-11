@@ -7,3 +7,6 @@ nix-shell
 mosaic_rasters input_directory output
 clip_raster raster.tif dataset.gpkg layer output.tiff
 ```
+
+## Credits
+Willeke A'Campo (@ac-willeke)
