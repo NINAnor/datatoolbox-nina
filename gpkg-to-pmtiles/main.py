@@ -4,7 +4,7 @@ import subprocess
 
 import click
 import fiona
-from fiona.crs import from_epsg
+from fiona.crs import CRS
 
 logging.basicConfig(level=(logging.INFO))
 
@@ -42,7 +42,7 @@ def gpkg_split(source_file: pathlib.Path, layer: str, wd: pathlib.Path) -> dict:
             ],
         )
         profile["driver"] = "GeoJSON"
-        profile["crs"] = from_epsg(4326)
+        profile["crs"] = CRS.from_epsg(4326)
         if not layer_source_file.exists():
             logging.info(
                 f"{str(layer_source_file)} not found, it will be extracted with fiona",
@@ -61,16 +61,22 @@ def gpkg_split(source_file: pathlib.Path, layer: str, wd: pathlib.Path) -> dict:
 
 @click.command()
 @click.argument("gpkg_file", type=click.Path(exists=True))
+@click.option('--ignore', '-i', multiple=True)
 @click.option(
     "--wd",
     default=".",
     type=click.Path(dir_okay=True, exists=True, readable=True, path_type=pathlib.Path),
 )
-def run(gpkg_file: pathlib.Path, wd: pathlib.Path) -> None:
+def run(gpkg_file: pathlib.Path, wd: pathlib.Path, ignore) -> None:
     layers = fiona.listlayers(gpkg_file)
-    logging.info(f"found {layers}")
 
     layers_gjson = []
+
+    if ignore:
+        logging.info(f"ignoring to {ignore}")
+        layers = list(filter(lambda layer: layer not in ignore, layers))
+
+    logging.info(f"found {layers}")
 
     for layer in layers:
         logging.info(f"process {layer}")
