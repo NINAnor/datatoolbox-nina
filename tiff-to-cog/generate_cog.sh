@@ -18,20 +18,16 @@ to_cog () {
   set -o xtrace
 
   case "$method" in
-    ("default")
-      gdal_translate "$input_file" "$input_file.cog" -co NUM_THREADS=ALL_CPUS -co TILING_SCHEME=GoogleMapsCompatible -of COG
+    ("a")
+      gdal_translate "$input_file" "$input_file.cog" -co NUM_THREADS=ALL_CPUS -co TILING_SCHEME=GoogleMapsCompatible -of COG -co RESAMPLING=rms
       ;;
-    ("no_overview")
+    (*)
       gdal_translate "$input_file" "$input_file.cog" -co NUM_THREADS=ALL_CPUS -co TILING_SCHEME=GoogleMapsCompatible -co OVERVIEWS=NONE -of COG
       ;;
-    ("remove_artifacts")
+    ("test")
       gdal_translate "$input_file" "$input_file.up" -co NUM_THREADS=ALL_CPUS -outsize 400% 400% -of GTiff && \
       gdal_translate "$input_file.up" "$input_file.cog" -co NUM_THREADS=ALL_CPUS -co TILING_SCHEME=GoogleMapsCompatible -co OVERVIEWS=IGNORE_EXISTING -co RESAMPLING=average -of COG
       rm "$input_file.up"
-      ;;
-    (*)
-      echo "Invalid method. Please use 'default', 'no_overview', or 'remove_artifacts'."
-      return 1
       ;;
   esac
 
