@@ -1,0 +1,14 @@
+[workspace]
+authors = ["Niccolo Cantu <niccolo.cantu@nina.no>"]
+channels = ["conda-forge"]
+name = "datatoolbox-nina"
+platforms = ["linux-64"]
+version = "0.1.0"
+
+[tasks]
+vector-to-pmtiles = { description = "Convert vector data to PMTiles format", cmd = ["./scripts/vector-to-pmtiles.sh"] }
+
+[dependencies]
+gdal = ">=3.12.2,<4"
+tippecanoe = ">=2.79.0,<3"
+parallel = ">=20260122,<20260123"
