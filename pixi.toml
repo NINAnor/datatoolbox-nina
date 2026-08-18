@@ -7,6 +7,7 @@ version = "0.1.0"
 
 [tasks]
 vector-to-pmtiles = { description = "Convert vector data to PMTiles format", cmd = ["./scripts/vector-to-pmtiles.sh"] }
+raster-to-cog = { description = "Convert raster data to COG format", cmd = ["./scripts/raster-to-cog.sh"] }
 
 [dependencies]
 gdal = ">=3.12.2,<4"
