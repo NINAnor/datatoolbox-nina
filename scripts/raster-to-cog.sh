@@ -1,6 +1,6 @@
 #!/bin/bash
-set -euo pipefail
+set -eu
 
 source="$1"
 
-gdal_translate  $source "$source.cog" -co NUM_THREADS=ALL_CPUS -of COG -co OVERVIEWS=AUTO -co BIGTIFF=IF_SAFER -co COMPRESS=ZSTD
+exec gdal raster convert --of COG --co NUM_THREADS=ALL_CPUS --co BIGTIFF=IF_SAFER --co COMPRESS=ZSTD --co PREDICTOR=YES "$source" "${source%.*}.cog.tif"
